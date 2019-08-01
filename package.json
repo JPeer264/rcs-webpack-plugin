@@ -1,0 +1,53 @@
+{
+  "name": "rcs-webpack-plugin",
+  "version": "0.0.0",
+  "description": "The webpack plugin for rcs",
+  "main": "src/index.ts",
+  "scripts": {
+    "fix": "npm run lint -- --fix",
+    "lint": "eslint 'app/**/*.{ts,tsx}'",
+    "test": "jest",
+    "start": "npm run build -- -w",
+    "build": "cross-env NODE_ENV=production tsc"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "*.{ts,tsx}": [
+      "eslint --fix",
+      "git add"
+    ]
+  },
+  "author": "Jan Peer Stöcklmair <janpeer264@gmail.com>",
+  "license": "ISC",
+  "dependencies": {
+    "rcs-core": "^2.6.2",
+    "rename-css-selectors": "^3.2.5",
+    "webpack": "^4.39.0",
+    "webpack-sources": "^1.4.1"
+  },
+  "devDependencies": {
+    "@types/jest": "^24.0.15",
+    "@types/webpack": "^4.32.1",
+    "@typescript-eslint/eslint-plugin": "^1.13.0",
+    "@typescript-eslint/parser": "^1.13.0",
+    "cross-env": "^5.2.0",
+    "css-loader": "^3.1.0",
+    "eslint": "^5.16.0",
+    "eslint-config-airbnb": "^17.1.1",
+    "eslint-plugin-import": "^2.18.2",
+    "eslint-plugin-jsx-a11y": "^6.2.3",
+    "eslint-plugin-react": "^7.14.3",
+    "husky": "^3.0.1",
+    "jest": "^24.8.0",
+    "lint-staged": "^9.2.1",
+    "mini-css-extract-plugin": "^0.8.0",
+    "rimraf": "^2.6.3",
+    "ts-jest": "^24.0.2",
+    "typescript": "^3.5.3",
+    "uuid": "^3.3.2"
+  }
+}
