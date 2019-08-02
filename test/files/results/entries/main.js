@@ -1,10 +1,12 @@
+import '../css/css-variables.css';
+
 /* eslint-disable */
 // jQuery example
-$(".jp-block");
+$(".g");
 
 // vanillaJS example
-document.getElementsByClassName(" jp-block__element");
-document.getElementById("jp-block__element--modifier");
+document.getElementsByClassName(" h");
+document.getElementById("i");
 
 const restSpread = {
     weirdFormatting: true,

@@ -1,6 +1,5 @@
 import { Plugin, Compiler, compilation as webpackCompilation } from 'webpack';
 import replaceData from 'rename-css-selectors/lib/process/replaceData';
-import ModuleFilenameHelpers from 'webpack/lib/ModuleFilenameHelpers';
 import defaults from 'rename-css-selectors/lib/process/defaults';
 import { RawSource } from 'webpack-sources';
 import rcs from 'rcs-core';
@@ -17,7 +16,6 @@ interface RcsOptions {
 }
 
 export interface Options extends RcsOptions {
-  rcs?: typeof rcs;
   fillLibraries?: boolean;
   espreeOptions?: {
     ecmaVersion: number;
@@ -34,7 +32,10 @@ class RcsWebpackPlugin implements Plugin {
   public plugin = 'RcsPlugin';
 
   public constructor(options: Options = {}) {
-    this.options = options;
+    this.options = {
+      fillLibraries: true,
+      ...options,
+    };
   }
 
   public apply(compiler: Compiler): void {
@@ -44,17 +45,12 @@ class RcsWebpackPlugin implements Plugin {
   private compilation(compilation: webpackCompilation.Compilation): void {
     compilation.hooks.optimizeChunkAssets.tap(
       this.plugin,
-      chunks => this.optimization(compilation, chunks),
+      () => this.optimization(compilation),
     );
   }
 
-  private optimization(
-    compilation: webpackCompilation.Compilation,
-    chunks: webpackCompilation.Chunk[],
-  ): void {
-    const filesArray = chunks.reduce((acc, chunk) => acc.concat(chunk.files || []), [])
-      .concat(compilation.additionalChunkAssets || [])
-      .filter(ModuleFilenameHelpers.matchObject.bind(null, this.options));
+  private optimization(compilation: webpackCompilation.Compilation): void {
+    const filesArray = Object.keys(compilation.assets);
 
     // should gain selectors first
     const cssHtmlFiles = filesArray.filter(file => (
@@ -64,7 +60,7 @@ class RcsWebpackPlugin implements Plugin {
 
     // todo jpeer: check if there is a way to get source without webpackBootstrap
     // set some excludes as they are used in the webpackBootstrap
-    rcs.selectorLibrary.setExclude(/default|string|object|a/);
+    rcs.selectorLibrary.setExclude(/^default|string|object|a$/);
 
     if (this.options.fillLibraries) {
       // fill libraries first just if wanted
