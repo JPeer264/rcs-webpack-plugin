@@ -1,4 +1,4 @@
-import webpack, { Configuration, Stats } from 'webpack';
+import webpack, { Configuration } from 'webpack';
 import MiniCssExtractPlugin from 'mini-css-extract-plugin';
 import rimraf from 'rimraf';
 import rcs from 'rcs-core';

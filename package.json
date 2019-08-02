@@ -5,7 +5,7 @@
   "main": "src/index.ts",
   "scripts": {
     "fix": "npm run lint -- --fix",
-    "lint": "eslint 'app/**/*.{ts,tsx}'",
+    "lint": "eslint 'src/**/*.ts' 'test/**/*.ts'",
     "test": "jest",
     "start": "npm run build -- -w",
     "build": "cross-env NODE_ENV=production tsc"

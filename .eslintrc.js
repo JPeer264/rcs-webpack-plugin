@@ -5,8 +5,8 @@ module.exports = {
     jest: true
   },
   extends: [
-    'airbnb',
     'plugin:@typescript-eslint/recommended',
+    'airbnb',
   ],
   parser: '@typescript-eslint/parser',
   plugins: ['@typescript-eslint'],
@@ -41,7 +41,5 @@ module.exports = {
       allowExpressions: true,
     }],
     '@typescript-eslint/indent': ['error', 2],
-
-    'react/jsx-filename-extension': [2, { extensions: ['.tsx'] }],
   }
 };
