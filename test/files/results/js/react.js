@@ -19,7 +19,7 @@ class Events extends Component {
 
   renderEvent() {
     if (this.props.events.length === 0) {
-      return <p class="a e">is</p>;
+      return <p class="a c">is</p>;
     }
 
     return <ListView class="b" data={this.props.events} />;

@@ -23,8 +23,10 @@
   },
   "author": "Jan Peer Stöcklmair <janpeer264@gmail.com>",
   "license": "ISC",
+  "peerDependencies": {
+    "rcs-core": "^2.x"
+  },
   "dependencies": {
-    "rcs-core": "^2.6.2",
     "rename-css-selectors": "^3.2.5",
     "webpack": "^4.39.0",
     "webpack-sources": "^1.4.1"

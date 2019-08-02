@@ -1,5 +1,5 @@
-import webpack, { Configuration } from 'webpack';
 import MiniCssExtractPlugin from 'mini-css-extract-plugin';
+import webpack, { Configuration } from 'webpack';
 import rimraf from 'rimraf';
 import rcs from 'rcs-core';
 import uuid from 'uuid/v1';
@@ -132,6 +132,7 @@ describe('rcs-webpack-plugin', () => {
 
   describe('works', () => {
     it('main js', () => expectFn('main.js', 'main.js', ['css', 'js']));
+
     it('main js ignore variables', () => (
       expectFn('main.js', 'main-ignore-variables.js', ['css', 'js'], { ignoreCssVariables: true })
     ));
