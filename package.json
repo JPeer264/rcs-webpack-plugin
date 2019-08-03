@@ -22,7 +22,7 @@
     ]
   },
   "author": "Jan Peer Stöcklmair <janpeer264@gmail.com>",
-  "license": "ISC",
+  "license": "MIT",
   "peerDependencies": {
     "rcs-core": "^2.x"
   },

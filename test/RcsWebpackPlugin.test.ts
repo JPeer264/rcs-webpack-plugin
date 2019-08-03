@@ -134,7 +134,7 @@ describe('rcs-webpack-plugin', () => {
     it('main js', () => expectFn('main.js', 'main.js', ['css', 'js']));
 
     it('main js ignore variables', () => (
-      expectFn('main.js', 'main-ignore-variables.js', ['css', 'js'], { ignoreCssVariables: true })
+      expectFn('main.js', 'main-ignore-variables.js', ['css', 'js'], { fillLibrariesOptions: { ignoreCssVariables: true } })
     ));
   });
 });

@@ -15,8 +15,9 @@ interface RcsOptions {
   ignoreAttributeSelectors?: boolean;
 }
 
-export interface Options extends RcsOptions {
-  fillLibraries?: boolean;
+export interface FillLibrariesOptions {
+  fillLibrariesOptions?: RcsOptions;
+  fillLibraries?: true;
   espreeOptions?: {
     ecmaVersion: number;
     sourceType: string;
@@ -25,6 +26,19 @@ export interface Options extends RcsOptions {
     };
   };
 }
+
+export interface NoFillLibrariesOptions {
+  fillLibraries?: false;
+  espreeOptions?: {
+    ecmaVersion: number;
+    sourceType: string;
+    ecmaFeatures: {
+      jsx: boolean;
+    };
+  };
+}
+
+export type Options = FillLibrariesOptions | NoFillLibrariesOptions;
 
 class RcsWebpackPlugin implements Plugin {
   public options: Options = {};
@@ -66,16 +80,17 @@ class RcsWebpackPlugin implements Plugin {
       // fill libraries first just if wanted
       cssHtmlFiles.forEach((filePath) => {
         const isHtml = defaults.fileExt.html.includes(path.extname(filePath));
+        const options = (this.options as FillLibrariesOptions).fillLibrariesOptions || {};
 
         rcs.fillLibraries(
           compilation.assets[filePath].source(),
           {
-            prefix: this.options.prefix,
-            suffix: this.options.suffix,
-            replaceKeyframes: this.options.replaceKeyframes,
-            preventRandomName: this.options.preventRandomName,
-            ignoreAttributeSelectors: this.options.ignoreAttributeSelectors,
-            ignoreCssVariables: this.options.ignoreCssVariables,
+            prefix: options.prefix,
+            suffix: options.suffix,
+            replaceKeyframes: options.replaceKeyframes,
+            preventRandomName: options.preventRandomName,
+            ignoreAttributeSelectors: options.ignoreAttributeSelectors,
+            ignoreCssVariables: options.ignoreCssVariables,
             codeType: isHtml ? 'html' : 'css',
           },
         );
