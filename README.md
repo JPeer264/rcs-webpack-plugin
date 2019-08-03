@@ -1,3 +1,8 @@
+[![MIT Licence](https://badges.frapsoft.com/os/mit/mit.svg?v=103)](https://opensource.org/licenses/mit-license.php)
+[![npm version](https://badge.fury.io/js/rcs-webpack-plugin.svg)](https://www.npmjs.com/package/rcs-webpack-plugin)
+[![Build Status](https://travis-ci.com/JPeer264/rcs-webpack-plugin.svg?branch=master)](https://travis-ci.com/JPeer264/rcs-webpack-plugin)
+[![Coverage Status](https://coveralls.io/repos/github/JPeer264/rcs-webpack-plugin/badge.svg?branch=master)](https://coveralls.io/github/JPeer264/rcs-webpack-plugin?branch=master)
+
 <div align="center">
   <!-- replace with accurate logo e.g from https://worldvectorlogo.com/ -->
   <a href="https://github.com/webpack/webpack">
