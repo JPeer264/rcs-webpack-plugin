@@ -6,8 +6,9 @@
   "scripts": {
     "fix": "npm run lint -- --fix",
     "lint": "eslint 'src/**/*.ts' 'test/**/*.ts'",
-    "test": "jest",
+    "test": "jest --coverage",
     "start": "npm run build -- -w",
+    "coverage": "cat ./tests/coverage/lcov.info | coveralls",
     "build": "cross-env NODE_ENV=production tsc"
   },
   "husky": {
@@ -36,6 +37,7 @@
     "@types/webpack": "^4.32.1",
     "@typescript-eslint/eslint-plugin": "^1.13.0",
     "@typescript-eslint/parser": "^1.13.0",
+    "coveralls": "^3.0.5",
     "cross-env": "^5.2.0",
     "css-loader": "^3.1.0",
     "eslint": "^5.16.0",
