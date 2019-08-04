@@ -2,7 +2,8 @@
   "name": "rcs-webpack-plugin",
   "version": "1.0.1",
   "description": "The webpack plugin for rcs",
-  "main": "build/index.js",
+  "main": "build/RcsWebpackPlugin.js",
+  "types": "./lib/RcsWebpackPlugin.d.ts",
   "scripts": {
     "fix": "npm run lint -- --fix",
     "lint": "eslint 'src/**/*.ts' 'test/**/*.ts'",
