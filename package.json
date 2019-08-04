@@ -2,12 +2,13 @@
   "name": "rcs-webpack-plugin",
   "version": "1.0.0",
   "description": "The webpack plugin for rcs",
-  "main": "src/index.ts",
+  "main": "build/index.js",
   "scripts": {
     "fix": "npm run lint -- --fix",
     "lint": "eslint 'src/**/*.ts' 'test/**/*.ts'",
     "test": "jest --coverage",
     "start": "npm run build -- -w",
+    "prepublish": "npm run build",
     "coverage": "cat ./tests/coverage/lcov.info | coveralls",
     "build": "cross-env NODE_ENV=production tsc"
   },
@@ -35,6 +36,7 @@
   "devDependencies": {
     "@types/jest": "^24.0.15",
     "@types/webpack": "^4.32.1",
+    "@types/webpack-sources": "^0.1.5",
     "@typescript-eslint/eslint-plugin": "^1.13.0",
     "@typescript-eslint/parser": "^1.13.0",
     "coveralls": "^3.0.5",

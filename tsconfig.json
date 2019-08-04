@@ -2,14 +2,13 @@
   "compilerOptions": {
     "target": "es5",
     "module": "commonjs",
-    "lib": [],
-    "jsx": "react",
     "outDir": "./build",
-    "rootDir": "./src",
     "strict": true,
-    "esModuleInterop": true
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true
   },
+  "include": ["src"],
   "files": [
-    "globals.d.ts"
-  ],
+    "global.d.ts"
+  ]
 }
