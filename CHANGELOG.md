@@ -1,3 +1,7 @@
+1.0.1 - August, 04 2019
+
+* d15f763 Chore: change way of publishing (JPeer264)
+
 1.0.0 - August, 03 2019
 
 * 76a80b2 Docs: add badges (JPeer264)
