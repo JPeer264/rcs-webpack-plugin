@@ -1,3 +1,7 @@
+1.0.2 - August, 04 2019
+
+* 51204f5 Chore: update typings (JPeer264)
+
 1.0.1 - August, 04 2019
 
 * d15f763 Chore: change way of publishing (JPeer264)
