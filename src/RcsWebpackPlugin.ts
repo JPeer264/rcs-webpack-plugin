@@ -74,7 +74,7 @@ class RcsWebpackPlugin implements Plugin {
 
     // todo jpeer: check if there is a way to get source without webpackBootstrap
     // set some excludes as they are used in the webpackBootstrap
-    rcs.selectorLibrary.setExclude(/^default|string|object|a$/);
+    rcs.selectorLibrary.setExclude(/^(default|string|object|a)$/);
 
     if (this.options.fillLibraries) {
       // fill libraries first just if wanted
