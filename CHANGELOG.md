@@ -1,3 +1,8 @@
+1.1.0 - February, 29 2020
+
+* f82cf20 Feat: ensure compatibility with html-webpack-plugin (ref #3) (JPeer264)
+* 1bc1877 Fix: wrong regex, matching all strings including "a" (JPeer264)
+
 1.0.2 - August, 04 2019
 
 * 51204f5 Chore: update typings (JPeer264)
