@@ -1,5 +1,7 @@
 import MiniCssExtractPlugin from 'mini-css-extract-plugin';
+import HtmlWebpackPlugin from 'html-webpack-plugin';
 import webpack, { Configuration } from 'webpack';
+import { minify } from 'html-minifier';
 import rimraf from 'rimraf';
 import rcs from 'rcs-core';
 import uuid from 'uuid/v1';
@@ -10,7 +12,9 @@ import RcsWebpackPlugin, { Options } from '../src';
 
 const buildDir = path.join(__dirname, 'build');
 
-const getConfig = (file: string, opts: Options, expect = false): Configuration => ({
+let extraPlugins = [];
+
+const getConfig = (file: string, opts?: Options, expect = false): Configuration => ({
   entry: path.join(__dirname, 'files', expect ? 'results' : 'fixtures', 'entries', file),
   output: {
     filename: 'bundle.js',
@@ -28,6 +32,7 @@ const getConfig = (file: string, opts: Options, expect = false): Configuration =
     ],
   },
   plugins: [
+    ...extraPlugins,
     new MiniCssExtractPlugin(),
     expect ? undefined : new RcsWebpackPlugin(opts),
   ].filter(a => a),
@@ -124,17 +129,37 @@ describe('rcs-webpack-plugin', () => {
     rcs.selectorLibrary.reset();
     rcs.keyframesLibrary.reset();
     rcs.cssVariablesLibrary.reset();
+
+    extraPlugins = [];
   });
 
   afterEach(() => {
     rimraf.sync(buildDir);
   });
 
-  describe('works', () => {
-    it('main js', () => expectFn('main.js', 'main.js', ['css', 'js']));
+  it('main js', () => expectFn('main.js', 'main.js', ['css', 'js']));
 
-    it('main js ignore variables', () => (
-      expectFn('main.js', 'main-ignore-variables.js', ['css', 'js'], { fillLibrariesOptions: { ignoreCssVariables: true } })
-    ));
+  it('main js ignore variables', () => (
+    expectFn('main.js', 'main-ignore-variables.js', ['css', 'js'], { fillLibrariesOptions: { ignoreCssVariables: true } })
+  ));
+
+  it('should work with HtmlWebpackPlugin', (done) => {
+    extraPlugins = [
+      new HtmlWebpackPlugin({
+        template: path.join(__dirname, 'files/fixtures/entries/index-with-style.html'),
+      }),
+    ];
+
+    const config = getConfig('main.js');
+
+    webpack(config, (_, res) => {
+      const generatedHtml = res.compilation.assets['index.html'].source();
+      const expectedHtml = fs.readFileSync(path.join(__dirname, 'files/results/html/index-with-style.html'), 'utf8');
+
+      expect(minify(generatedHtml, { collapseWhitespace: true }))
+        .toEqual(minify(expectedHtml, { collapseWhitespace: true }));
+
+      done();
+    });
   });
 });

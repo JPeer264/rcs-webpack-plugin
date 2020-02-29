@@ -63,6 +63,40 @@ class RcsWebpackPlugin implements Plugin {
     );
   }
 
+  private htmlWebpackPlugin(compilation: webpackCompilation.Compilation): void {
+    const hookBefore = (compilation.hooks as any).htmlWebpackPluginBeforeHtmlProcessing;
+    const hookAfter = (compilation.hooks as any).htmlWebpackPluginAfterHtmlProcessing;
+
+    if (!hookBefore || !hookAfter) {
+      // HtmlWebpackPlugin not in use
+      return;
+    }
+
+    // fill library before the html processing
+    // in case inline styling gets removed by another plugin
+    hookBefore.tapAsync(this.plugin, (htmlData: any, callback: any) => {
+      const options = (this.options as FillLibrariesOptions).fillLibrariesOptions || {};
+
+      rcs.fillLibraries(htmlData.html, {
+        ...options,
+        codeType: 'html',
+      });
+
+      callback(null, htmlData);
+    });
+
+    // replace after processing
+    // in case html changed during processing
+    hookAfter.tapAsync(this.plugin, (htmlData: any, callback: any) => {
+      // eslint-disable-next-line no-param-reassign
+      htmlData.html = rcs.replace.html(htmlData.html, {
+        ...this.options.espreeOptions,
+      });
+
+      callback(null, htmlData);
+    });
+  }
+
   private optimization(compilation: webpackCompilation.Compilation): void {
     const filesArray = Object.keys(compilation.assets);
 
@@ -107,6 +141,8 @@ class RcsWebpackPlugin implements Plugin {
       // eslint-disable-next-line no-param-reassign
       compilation.assets[filePath] = new RawSource(data);
     });
+
+    this.htmlWebpackPlugin(compilation);
   }
 }
 
