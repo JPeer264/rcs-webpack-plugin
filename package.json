@@ -11,7 +11,7 @@
     "start": "npm run build -- -w",
     "prepublish": "npm run build",
     "coverage": "cat ./tests/coverage/lcov.info | coveralls",
-    "build": "cross-env NODE_ENV=production tsc"
+    "build": "rimraf build && cross-env NODE_ENV=production tsc && babel build -d build"
   },
   "husky": {
     "hooks": {
@@ -35,11 +35,13 @@
     "webpack-sources": "^1.4.1"
   },
   "devDependencies": {
+    "@babel/cli": "^7.8.4",
     "@types/jest": "^24.0.15",
     "@types/webpack": "^4.32.1",
     "@types/webpack-sources": "^0.1.5",
     "@typescript-eslint/eslint-plugin": "^1.13.0",
     "@typescript-eslint/parser": "^1.13.0",
+    "babel-plugin-add-module-exports": "^1.0.2",
     "coveralls": "^3.0.5",
     "cross-env": "^5.2.0",
     "css-loader": "^3.1.0",
@@ -55,7 +57,7 @@
     "jest": "^24.8.0",
     "lint-staged": "^9.2.1",
     "mini-css-extract-plugin": "^0.8.0",
-    "rimraf": "^2.6.3",
+    "rimraf": "^2.7.1",
     "ts-jest": "^24.0.2",
     "typescript": "^3.5.3",
     "uuid": "^3.3.2"
