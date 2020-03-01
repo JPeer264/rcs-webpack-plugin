@@ -29,6 +29,12 @@ const getConfig = (file: string, opts?: Options, expect = false): Configuration 
           'css-loader',
         ],
       },
+      {
+        test: /\.hbs$/,
+        use: [
+          'handlebars-loader',
+        ],
+      },
     ],
   },
   plugins: [
@@ -155,6 +161,26 @@ describe('rcs-webpack-plugin', () => {
     webpack(config, (_, res) => {
       const generatedHtml = res.compilation.assets['index.html'].source();
       const expectedHtml = fs.readFileSync(path.join(__dirname, 'files/results/html/index-with-style.html'), 'utf8');
+
+      expect(minify(generatedHtml, { collapseWhitespace: true }))
+        .toEqual(minify(expectedHtml, { collapseWhitespace: true }));
+
+      done();
+    });
+  });
+
+  it('should work with HtmlWebpackPlugin and handlebars', (done) => {
+    extraPlugins = [
+      new HtmlWebpackPlugin({
+        template: path.join(__dirname, 'files/fixtures/entries/index-with-style.hbs'),
+      }),
+    ];
+
+    const config = getConfig('main.js');
+
+    webpack(config, (_, res) => {
+      const generatedHtml = res.compilation.assets['index.html'].source();
+      const expectedHtml = fs.readFileSync(path.join(__dirname, 'files/results/html/index-handlebars.html'), 'utf8');
 
       expect(minify(generatedHtml, { collapseWhitespace: true }))
         .toEqual(minify(expectedHtml, { collapseWhitespace: true }));
