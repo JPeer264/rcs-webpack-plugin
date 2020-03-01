@@ -1,3 +1,9 @@
+1.2.0 - March, 01 2020
+
+* 9ff5a13 Docs: add examples (closes #3) (JPeer264)
+* 1fdb446 Chore: add module exports default by babel (JPeer264)
+* 84b6acd Feat: update rename-css-selectors to also include mighty hbs files (ref #3) (JPeer264)
+
 1.1.0 - February, 29 2020
 
 * f82cf20 Feat: ensure compatibility with html-webpack-plugin (ref #3) (JPeer264)
