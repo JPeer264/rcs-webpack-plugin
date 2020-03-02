@@ -64,17 +64,30 @@ class RcsWebpackPlugin implements Plugin {
   }
 
   private htmlWebpackPlugin(compilation: webpackCompilation.Compilation): void {
-    const hookBefore = (compilation.hooks as any).htmlWebpackPluginBeforeHtmlProcessing;
-    const hookAfter = (compilation.hooks as any).htmlWebpackPluginAfterHtmlProcessing;
+    let hookAfter = (compilation.hooks as any).htmlWebpackPluginAfterHtmlProcessing;
+    const [HtmlWebpackPlugin] = (compilation.compiler.options.plugins || []).filter(plugin => (
+      plugin.constructor.name === 'HtmlWebpackPlugin'
+    ));
 
-    if (!hookBefore || !hookAfter) {
+    // html-webpack-plugin v4+
+    if (!hookAfter && HtmlWebpackPlugin) {
+      const hooks = (HtmlWebpackPlugin as any).constructor.getHooks(compilation);
+
+      if (!hooks) {
+        return;
+      }
+
+      hookAfter = hooks.afterTemplateExecution;
+    }
+
+    if (!hookAfter) {
       // HtmlWebpackPlugin not in use
       return;
     }
 
-    // fill library before the html processing
-    // in case inline styling gets removed by another plugin
-    hookBefore.tapAsync(this.plugin, (htmlData: any, callback: any) => {
+    // replace after processing
+    // in case html changed during processing
+    hookAfter.tapAsync(this.plugin, (htmlData: any, callback: any) => {
       const options = (this.options as FillLibrariesOptions).fillLibrariesOptions || {};
 
       rcs.fillLibraries(htmlData.html, {
@@ -82,12 +95,6 @@ class RcsWebpackPlugin implements Plugin {
         codeType: 'html',
       });
 
-      callback(null, htmlData);
-    });
-
-    // replace after processing
-    // in case html changed during processing
-    hookAfter.tapAsync(this.plugin, (htmlData: any, callback: any) => {
       // eslint-disable-next-line no-param-reassign
       htmlData.html = rcs.replace.html(htmlData.html, {
         ...this.options.espreeOptions,
