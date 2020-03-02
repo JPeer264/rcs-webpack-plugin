@@ -1,3 +1,7 @@
+1.4.0 - March, 02 2020
+
+* 5a91051 Feat: add experimentalHandlebarsVariables (JPeer264)
+
 1.3.0 - March, 02 2020
 
 * ffeef13 Feat: add support for html-webpack-plugin@4-beta (JPeer264)
