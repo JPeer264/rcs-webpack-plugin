@@ -1,3 +1,7 @@
+1.3.0 - March, 02 2020
+
+* ffeef13 Feat: add support for html-webpack-plugin@4-beta (JPeer264)
+
 1.2.0 - March, 01 2020
 
 * 9ff5a13 Docs: add examples (closes #3) (JPeer264)
