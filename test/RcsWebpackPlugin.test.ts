@@ -188,4 +188,24 @@ describe('rcs-webpack-plugin', () => {
       done();
     });
   });
+
+  it('should work with HtmlWebpackPlugin and handlebars variables | issue #6', (done) => {
+    extraPlugins = [
+      new HtmlWebpackPlugin({
+        template: path.join(__dirname, 'files/fixtures/entries/index-with-kept-variables.hbs'),
+      }),
+    ];
+
+    const config = getConfig('main.js', { experimentalHandlebarsVariables: true });
+
+    webpack(config, (_, res) => {
+      const generatedHtml = res.compilation.assets['index.html'].source();
+      const expectedHtml = fs.readFileSync(path.join(__dirname, 'files/results/html/index-handlebars-kept-variables.html'), 'utf8');
+
+      expect(minify(generatedHtml, { collapseWhitespace: true }))
+        .toEqual(minify(expectedHtml, { collapseWhitespace: true }));
+
+      done();
+    });
+  });
 });

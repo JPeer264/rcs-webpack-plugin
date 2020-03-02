@@ -16,6 +16,7 @@ interface RcsOptions {
 }
 
 export interface FillLibrariesOptions {
+  experimentalHandlebarsVariables?: boolean;
   fillLibrariesOptions?: RcsOptions;
   fillLibraries?: true;
   espreeOptions?: {
@@ -28,6 +29,7 @@ export interface FillLibrariesOptions {
 }
 
 export interface NoFillLibrariesOptions {
+  experimentalHandlebarsVariables?: boolean;
   fillLibraries?: false;
   espreeOptions?: {
     ecmaVersion: number;
@@ -90,15 +92,28 @@ class RcsWebpackPlugin implements Plugin {
     hookAfter.tapAsync(this.plugin, (htmlData: any, callback: any) => {
       const options = (this.options as FillLibrariesOptions).fillLibrariesOptions || {};
 
-      rcs.fillLibraries(htmlData.html, {
+      let { html } = htmlData;
+
+      // replace handlebars variables when they were ignored
+      if (this.options.experimentalHandlebarsVariables) {
+        html = html.replace(/({{[\s\S]*}})/g, "'experimentalRcs$1experimentalRcsEnd'");
+      }
+
+      rcs.fillLibraries(html, {
         ...options,
         codeType: 'html',
       });
 
-      // eslint-disable-next-line no-param-reassign
-      htmlData.html = rcs.replace.html(htmlData.html, {
+      html = rcs.replace.html(html, {
         ...this.options.espreeOptions,
       });
+
+      if (this.options.experimentalHandlebarsVariables) {
+        html = html.replace(/'experimentalRcs([\s\S]*)experimentalRcsEnd'/, '$1');
+      }
+
+      // eslint-disable-next-line no-param-reassign
+      htmlData.html = html;
 
       callback(null, htmlData);
     });

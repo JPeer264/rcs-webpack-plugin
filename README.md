@@ -67,6 +67,11 @@ Default: `true`
 
 `espreeOptions` are mainly for the JS parsing. These options are the same as [`rcs-core@replaceJs`](https://github.com/JPeer264/node-rcs-core/blob/master/docs/api/replace.md#js)
 
+### experimentalHandlebarsVariables
+
+If you use handlebars and have variables in your JavaScript for dynamic content creation
+
+Default: `false`
 
 ## LICENSE
 
