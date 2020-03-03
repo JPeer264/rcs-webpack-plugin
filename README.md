@@ -29,8 +29,14 @@ $ npm i rcs-webpack-plugin -D
 ## Usage
 
 ```js
+import rcs from 'rcs-core'; // just import this if you want to change the options on the core directly
 import MiniCssExtractPlugin from 'mini-css-extract-plugin';
 import RcsWebpackPlugin from 'rcs-webpack-plugin';
+
+// following methods also allow array of strings and RegExp
+rcs.selectorLibrary.setExclude('my-selector'); // if you want to exclude a specific selector
+rcs.selectorLibrary.set('my-custom-selector'); // if you want to include custom selectors which are not in css files
+// check out github.com/JPeer264/node-rcs-core/blob/7e3ebb872964f49bf82c84f6920005610a3d252a/docs/api for more information
 
 export default {
   module: {
