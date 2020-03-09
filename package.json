@@ -62,5 +62,17 @@
     "ts-jest": "^24.0.2",
     "typescript": "^3.5.3",
     "uuid": "^3.3.2"
-  }
+  },
+  "directories": {
+    "example": "examples",
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/JPeer264/rcs-webpack-plugin.git"
+  },
+  "bugs": {
+    "url": "https://github.com/JPeer264/rcs-webpack-plugin/issues"
+  },
+  "homepage": "https://github.com/JPeer264/rcs-webpack-plugin#readme"
 }
