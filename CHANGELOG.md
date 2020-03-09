@@ -1,3 +1,8 @@
+1.4.1 - March, 09 2020
+
+* c6f2614 Chore: add missing meta data in package.json (JPeer264)
+* 76f8ff1 Docs: add examples with rcs-core itself (ref #8) (JPeer264)
+
 1.4.0 - March, 02 2020
 
 * 5a91051 Feat: add experimentalHandlebarsVariables (JPeer264)
