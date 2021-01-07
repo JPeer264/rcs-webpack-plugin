@@ -23,7 +23,7 @@
 ## Installation
 
 ```sh
-$ npm i rcs-webpack-plugin -D
+$ npm i rcs-webpack-plugin rcs-core -D
 ```
 
 ## Usage
