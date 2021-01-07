@@ -5,7 +5,7 @@ import '../css/css-variables.css';
 $(".jp-block");
 
 // vanillaJS example
-document.getElementsByClassName(" jp-block__element");
+document.getElementsByClassName("jp-block__element");
 document.getElementById("jp-block__element--modifier");
 
 const restSpread = {

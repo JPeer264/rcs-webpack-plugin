@@ -5,7 +5,7 @@ import '../css/css-variables-ignore.css';
 $(".d");
 
 // vanillaJS example
-document.getElementsByClassName(" e");
+document.getElementsByClassName("e");
 document.getElementById("f");
 
 const restSpread = {

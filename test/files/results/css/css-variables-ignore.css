@@ -34,7 +34,7 @@
     content: 'block__element--modifier';
 }
 
-.g{
+.g {
     content: 'block--modifier';
 }
 
@@ -46,17 +46,17 @@
     content: 'block__element--modifier';
 }
 
-#i {
+#a {
     content: 'id';
 }
 
-.j[src] {
+.i[src] {
     content: 'attribute';
-    filter: progid:DXImageTransform.Microsoft.gradient(enabled = false);
+    filter: progid:DXImageTransform.Microsoft.gradient(enabled=false);
 }
 
 @media screen and (min-width: .40em) {
-    #i {
+    #a {
         height: .20px;
         width: .20em;
     }
@@ -65,11 +65,9 @@
 /**
  * a description
  */
-@media screen and (min-width: 40em)
 
-{
-    #i
-    {
+@media screen and (min-width: 40em) {
+    #a {
         height: .20px;
         width: .20em;
     }
@@ -79,22 +77,22 @@ h1 {
     color: red;
 }
 
-.k {
+.j {
     content: 'reveal';
     color: #eee;
     font-size: .5rem;
 }
 
-.l.k {
+.k.j {
     content: 'js reveal';
     margin-right: calc(var(--theme-primary, var(--0px)) - var(--theme-secondary, var(--0px)));
     margin-bottom: calc(var(--theme-tertiary, var(--0px)) - var(--theme-primary, var(--0px)));
 }
 
-.m.k {
+.l.j {
     content: 'js reveal';
 }
 
-.n {
+.m {
     content: 'js-reveal';
 }

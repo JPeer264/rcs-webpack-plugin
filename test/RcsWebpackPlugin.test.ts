@@ -49,7 +49,7 @@ const run = async (file: string, opts?: Options, expect?: boolean): Promise<stri
   const compiler = webpack(config);
   const generatedPath = config.output.path.split('/').pop();
 
-  await new Promise(res => compiler.run(() => res()));
+  await new Promise(res => compiler.run(() => res(undefined)));
 
   return generatedPath;
 };
@@ -130,9 +130,14 @@ const expectFn = async (
 
 describe('rcs-webpack-plugin', () => {
   beforeEach(() => {
-    rcs.nameGenerator.setAlphabet('#abcdefghijklmnopqrstuvwxyz');
-    rcs.nameGenerator.reset();
-    rcs.selectorLibrary.reset();
+    rcs.keyframesLibrary.setAlphabet('#abcdefghijklmnopqrstuvwxyz');
+    rcs.cssVariablesLibrary.setAlphabet('#abcdefghijklmnopqrstuvwxyz');
+    rcs.selectorsLibrary.setAlphabet('#abcdefghijklmnopqrstuvwxyz');
+    rcs.selectorsLibrary.selectors[0].nameGenerator.reset();
+    rcs.selectorsLibrary.selectors[1].nameGenerator.reset();
+    rcs.keyframesLibrary.nameGenerator.reset();
+    rcs.cssVariablesLibrary.nameGenerator.reset();
+    rcs.selectorsLibrary.reset();
     rcs.keyframesLibrary.reset();
     rcs.cssVariablesLibrary.reset();
 

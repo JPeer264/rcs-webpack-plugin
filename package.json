@@ -27,10 +27,10 @@
   "author": "Jan Peer Stöcklmair <janpeer264@gmail.com>",
   "license": "MIT",
   "peerDependencies": {
-    "rcs-core": "^2.x"
+    "rcs-core": "^3.x"
   },
   "dependencies": {
-    "rename-css-selectors": "^3.3.0",
+    "rename-css-selectors": "^4.0.0-rc.3",
     "webpack": "^4.41.6",
     "webpack-cli": "^3.3.11",
     "webpack-sources": "^1.4.1"
@@ -58,6 +58,7 @@
     "jest": "^24.8.0",
     "lint-staged": "^9.2.1",
     "mini-css-extract-plugin": "^0.8.2",
+    "rcs-core": "^3.6.0",
     "rimraf": "^2.7.1",
     "ts-jest": "^24.0.2",
     "typescript": "^3.5.3",

@@ -1,6 +1,6 @@
 import { Plugin, Compiler, compilation as webpackCompilation } from 'webpack';
-import replaceData from 'rename-css-selectors/lib/process/replaceData';
-import defaults from 'rename-css-selectors/lib/process/defaults';
+import replaceData from 'rename-css-selectors/dest/process/replaceData';
+import defaults from 'rename-css-selectors/dest/process/defaults';
 import { RawSource } from 'webpack-sources';
 import rcs from 'rcs-core';
 import path from 'path';
@@ -104,9 +104,7 @@ class RcsWebpackPlugin implements Plugin {
         codeType: 'html',
       });
 
-      html = rcs.replace.html(html, {
-        ...this.options.espreeOptions,
-      });
+      html = rcs.replace.html(html, { espreeOptions: this.options.espreeOptions });
 
       if (this.options.experimentalHandlebarsVariables) {
         html = html.replace(/'experimentalRcs([\s\S]*)experimentalRcsEnd'/, '$1');
@@ -130,7 +128,7 @@ class RcsWebpackPlugin implements Plugin {
 
     // todo jpeer: check if there is a way to get source without webpackBootstrap
     // set some excludes as they are used in the webpackBootstrap
-    rcs.selectorLibrary.setExclude(/^(default|string|object|a)$/);
+    rcs.selectorsLibrary.setExclude(/^(default|string|object|a)$/);
 
     if (this.options.fillLibraries) {
       // fill libraries first just if wanted
@@ -154,10 +152,7 @@ class RcsWebpackPlugin implements Plugin {
     }
 
     filesArray.forEach((filePath) => {
-      const data = replaceData(filePath, compilation.assets[filePath].source(), {
-        ...this.options.espreeOptions,
-        type: 'auto',
-      });
+      const data = replaceData('auto', filePath, compilation.assets[filePath].source(), { espreeOptions: this.options.espreeOptions });
 
       // todo jpeer: add sourcemaps
       // eslint-disable-next-line no-param-reassign

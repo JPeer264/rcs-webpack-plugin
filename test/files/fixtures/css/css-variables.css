@@ -34,7 +34,7 @@
     content: 'block__element--modifier';
 }
 
-.jp-block--modifier{
+.jp-block--modifier {
     content: 'block--modifier';
 }
 
@@ -52,7 +52,7 @@
 
 .jp-attribute[src] {
     content: 'attribute';
-    filter: progid:DXImageTransform.Microsoft.gradient(enabled = false);
+    filter: progid:DXImageTransform.Microsoft.gradient(enabled=false);
 }
 
 @media screen and (min-width: .40em) {
@@ -65,11 +65,9 @@
 /**
  * a description
  */
-@media screen and (min-width: 40em)
 
-{
-    #id
-    {
+@media screen and (min-width: 40em) {
+    #id {
         height: .20px;
         width: .20em;
     }

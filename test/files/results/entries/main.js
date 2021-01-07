@@ -2,11 +2,11 @@ import '../css/css-variables.css';
 
 /* eslint-disable */
 // jQuery example
-$(".g");
+$(".d");
 
 // vanillaJS example
-document.getElementsByClassName(" h");
-document.getElementById("i");
+document.getElementsByClassName("e");
+document.getElementById("f");
 
 const restSpread = {
     weirdFormatting: true,
