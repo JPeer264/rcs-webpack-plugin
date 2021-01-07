@@ -1,7 +1,7 @@
 [![MIT Licence](https://badges.frapsoft.com/os/mit/mit.svg?v=103)](https://opensource.org/licenses/mit-license.php)
 [![npm version](https://badge.fury.io/js/rcs-webpack-plugin.svg)](https://badge.fury.io/js/rcs-webpack-plugin)
-[![Build Status](https://travis-ci.com/JPeer264/rcs-webpack-plugin.svg?branch=master)](https://travis-ci.com/JPeer264/rcs-webpack-plugin)
-[![Coverage Status](https://coveralls.io/repos/github/JPeer264/rcs-webpack-plugin/badge.svg?branch=master)](https://coveralls.io/github/JPeer264/rcs-webpack-plugin?branch=master)
+[![Build Status](https://travis-ci.com/JPeer264/rcs-webpack-plugin.svg?branch=main)](https://travis-ci.com/JPeer264/rcs-webpack-plugin)
+[![Coverage Status](https://coveralls.io/repos/github/JPeer264/rcs-webpack-plugin/badge.svg?branch=main)](https://coveralls.io/github/JPeer264/rcs-webpack-plugin?branch=main)
 
 <div align="center">
   <!-- replace with accurate logo e.g from https://worldvectorlogo.com/ -->
@@ -67,11 +67,11 @@ Default: `true`
 
 ### fillLibrariesOptions (object)
 
-`fillLibrariesOptions` just applies if `{ fillLibraries: true }`. These options are the same as [`rcs-core@fillLibraries`](https://github.com/JPeer264/node-rcs-core/blob/master/docs/api/filllibraries.md)
+`fillLibrariesOptions` just applies if `{ fillLibraries: true }`. These options are the same as [`rcs-core@fillLibraries`](https://github.com/JPeer264/node-rcs-core/blob/main/docs/api/filllibraries.md)
 
 ### espreeOptions (object)
 
-`espreeOptions` are mainly for the JS parsing. These options are the same as [`rcs-core@replaceJs`](https://github.com/JPeer264/node-rcs-core/blob/master/docs/api/replace.md#js)
+`espreeOptions` are mainly for the JS parsing. These options are the same as [`rcs-core@replaceJs`](https://github.com/JPeer264/node-rcs-core/blob/main/docs/api/replace.md#js)
 
 ### experimentalHandlebarsVariables
 
