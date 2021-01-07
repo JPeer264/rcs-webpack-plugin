@@ -1,3 +1,9 @@
+1.4.2 - January, 07 2021
+
+* 239b6a6 Chore: do not use global.d (JPeer264)
+* b2d8290 Docs: add rsc-core in readme (JPeer264)
+* a12f605 Chore: update rcs-core internally (JPeer264)
+
 1.4.1 - March, 09 2020
 
 * c6f2614 Chore: add missing meta data in package.json (JPeer264)
