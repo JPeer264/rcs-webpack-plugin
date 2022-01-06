@@ -1,9 +1,14 @@
-import { Plugin, Compiler, compilation as webpackCompilation } from 'webpack';
+import { Compiler, Compilation } from 'webpack';
+import type { WebpackPluginInstance, sources } from 'webpack';
 import replaceData from 'rename-css-selectors/dest/process/replaceData';
 import defaults from 'rename-css-selectors/dest/process/defaults';
 import { RawSource } from 'webpack-sources';
 import rcs from 'rcs-core';
 import path from 'path';
+
+declare interface CompilationAssets {
+	[index: string]: sources.Source | RawSource;
+}
 
 // todo jpeer: change to rcs-core options as soon as it is typesafe
 interface RcsOptions {
@@ -42,7 +47,7 @@ export interface NoFillLibrariesOptions {
 
 export type Options = FillLibrariesOptions | NoFillLibrariesOptions;
 
-class RcsWebpackPlugin implements Plugin {
+class RcsWebpackPlugin implements WebpackPluginInstance {
   public options: Options = {};
 
   public plugin = 'RcsPlugin';
@@ -58,14 +63,14 @@ class RcsWebpackPlugin implements Plugin {
     compiler.hooks.thisCompilation.tap(this.plugin, this.compilation.bind(this));
   }
 
-  private compilation(compilation: webpackCompilation.Compilation): void {
-    compilation.hooks.optimizeChunkAssets.tap(
-      this.plugin,
-      () => this.optimization(compilation),
-    );
+  private compilation(compilation: Compilation): void {
+    compilation.hooks.processAssets.tap(  {
+      name: this.plugin,
+      stage: Compilation.PROCESS_ASSETS_STAGE_OPTIMIZE_SIZE,
+    }, (assets: CompilationAssets) => this.optimization(compilation, assets));
   }
 
-  private htmlWebpackPlugin(compilation: webpackCompilation.Compilation): void {
+  private htmlWebpackPlugin(compilation: Compilation): void {
     let hookAfter = (compilation.hooks as any).htmlWebpackPluginAfterHtmlProcessing;
     const [HtmlWebpackPlugin] = (compilation.compiler.options.plugins || []).filter(plugin => (
       plugin.constructor.name === 'HtmlWebpackPlugin'
@@ -117,8 +122,9 @@ class RcsWebpackPlugin implements Plugin {
     });
   }
 
-  private optimization(compilation: webpackCompilation.Compilation): void {
-    const filesArray = Object.keys(compilation.assets);
+  private optimization(compilation: Compilation, compilationAssets?: CompilationAssets): void {
+    const assets = compilationAssets || compilation.assets
+    const filesArray = Object.keys(assets);
 
     // should gain selectors first
     const cssHtmlFiles = filesArray.filter(file => (
@@ -137,7 +143,7 @@ class RcsWebpackPlugin implements Plugin {
         const options = (this.options as FillLibrariesOptions).fillLibrariesOptions || {};
 
         rcs.fillLibraries(
-          compilation.assets[filePath].source(),
+          assets[filePath].source(),
           {
             prefix: options.prefix,
             suffix: options.suffix,
@@ -152,11 +158,11 @@ class RcsWebpackPlugin implements Plugin {
     }
 
     filesArray.forEach((filePath) => {
-      const data = replaceData('auto', filePath, compilation.assets[filePath].source(), { espreeOptions: this.options.espreeOptions });
+      const data = replaceData('auto', filePath, assets[filePath].source() as string, { espreeOptions: this.options.espreeOptions });
 
       // todo jpeer: add sourcemaps
       // eslint-disable-next-line no-param-reassign
-      compilation.assets[filePath] = new RawSource(data);
+      assets[filePath] = new RawSource(data);
     });
 
     this.htmlWebpackPlugin(compilation);
