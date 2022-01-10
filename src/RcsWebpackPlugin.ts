@@ -1,5 +1,6 @@
-import { Compiler, Compilation } from 'webpack';
-import type { WebpackPluginInstance, sources } from 'webpack';
+import {
+  Compiler, Compilation, WebpackPluginInstance, sources,
+} from 'webpack';
 import replaceData from 'rename-css-selectors/dest/process/replaceData';
 import defaults from 'rename-css-selectors/dest/process/defaults';
 import { RawSource } from 'webpack-sources';
@@ -7,7 +8,7 @@ import rcs from 'rcs-core';
 import path from 'path';
 
 declare interface CompilationAssets {
-	[index: string]: sources.Source | RawSource;
+  [index: string]: sources.Source | RawSource;
 }
 
 // todo jpeer: change to rcs-core options as soon as it is typesafe
@@ -64,7 +65,7 @@ class RcsWebpackPlugin implements WebpackPluginInstance {
   }
 
   private compilation(compilation: Compilation): void {
-    compilation.hooks.processAssets.tap(  {
+    compilation.hooks.processAssets.tap({
       name: this.plugin,
       stage: Compilation.PROCESS_ASSETS_STAGE_OPTIMIZE_SIZE,
     }, (assets: CompilationAssets) => this.optimization(compilation, assets));
@@ -123,7 +124,7 @@ class RcsWebpackPlugin implements WebpackPluginInstance {
   }
 
   private optimization(compilation: Compilation, compilationAssets?: CompilationAssets): void {
-    const assets = compilationAssets || compilation.assets
+    const assets = compilationAssets || compilation.assets;
     const filesArray = Object.keys(assets);
 
     // should gain selectors first
