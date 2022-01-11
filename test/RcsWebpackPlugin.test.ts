@@ -172,6 +172,7 @@ describe('rcs-webpack-plugin', () => {
     webpack(config, () => {
       const generatedHtml = fs.readFileSync(path.join(config.output.path, 'index.html'), 'utf8');
       const expectedHtml = fs.readFileSync(path.join(__dirname, 'files/results/html/index-with-style.html'), 'utf8');
+
       expect(minify(generatedHtml, { collapseWhitespace: true }))
         .toEqual(minify(expectedHtml, { collapseWhitespace: true }));
 
