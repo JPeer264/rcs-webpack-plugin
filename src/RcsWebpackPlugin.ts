@@ -5,6 +5,7 @@ import replaceData from 'rename-css-selectors/dest/process/replaceData';
 import defaults from 'rename-css-selectors/dest/process/defaults';
 import { RawSource } from 'webpack-sources';
 import rcs from 'rcs-core';
+import { FillLibrariesOptions as RcsFillLibrariesOptions } from 'rename-css-selectors/dest/process/process';
 import path from 'path';
 
 declare interface CompilationAssets {
@@ -23,7 +24,7 @@ interface RcsOptions {
 
 export interface FillLibrariesOptions {
   experimentalHandlebarsVariables?: boolean;
-  fillLibrariesOptions?: RcsOptions;
+  fillLibrariesOptions?: Omit<RcsFillLibrariesOptions, 'codeType'>;
   fillLibraries?: true;
   espreeOptions?: {
     ecmaVersion: number;

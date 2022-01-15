@@ -22,8 +22,16 @@
 
 ## Installation
 
+With NPM v7+:
+
+```
+$ npm i rcs-webpack-plugin -D
+```
+
+With prior NPM versions:
+
 ```sh
-$ npm i rcs-webpack-plugin rcs-core -D
+$ npm i rcs-webpack-plugin rcs-core rename-css-selectors -D
 ```
 
 ## Usage
