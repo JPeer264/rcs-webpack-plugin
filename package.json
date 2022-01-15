@@ -1,6 +1,6 @@
 {
   "name": "rcs-webpack-plugin",
-  "version": "1.4.2",
+  "version": "2.0.0",
   "description": "The webpack plugin for rcs",
   "main": "build/RcsWebpackPlugin.js",
   "types": "./lib/RcsWebpackPlugin.d.ts",
