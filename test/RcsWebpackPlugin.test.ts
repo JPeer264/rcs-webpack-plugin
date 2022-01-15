@@ -8,6 +8,7 @@ import uuid from 'uuid/v1';
 import path from 'path';
 import fs from 'fs';
 
+// eslint-disable-next-line import/extensions
 import RcsWebpackPlugin, { Options } from '../src';
 
 const buildDir = path.join(__dirname, 'build');
@@ -158,13 +159,18 @@ describe('rcs-webpack-plugin', () => {
     extraPlugins = [
       new HtmlWebpackPlugin({
         template: path.join(__dirname, 'files/fixtures/entries/index-with-style.html'),
+        scriptLoading: 'blocking',
+        minify: {
+          collapseWhitespace: true,
+          useShortDoctype: false,
+        },
       }),
     ];
 
     const config = getConfig('main.js');
 
-    webpack(config, (_, res) => {
-      const generatedHtml = res.compilation.assets['index.html'].source();
+    webpack(config, () => {
+      const generatedHtml = fs.readFileSync(path.join(config.output.path, 'index.html'), 'utf8');
       const expectedHtml = fs.readFileSync(path.join(__dirname, 'files/results/html/index-with-style.html'), 'utf8');
 
       expect(minify(generatedHtml, { collapseWhitespace: true }))
@@ -178,13 +184,18 @@ describe('rcs-webpack-plugin', () => {
     extraPlugins = [
       new HtmlWebpackPlugin({
         template: path.join(__dirname, 'files/fixtures/entries/index-with-style.hbs'),
+        scriptLoading: 'blocking',
+        minify: {
+          collapseWhitespace: true,
+          useShortDoctype: false,
+        },
       }),
     ];
 
     const config = getConfig('main.js');
 
-    webpack(config, (_, res) => {
-      const generatedHtml = res.compilation.assets['index.html'].source();
+    webpack(config, () => {
+      const generatedHtml = fs.readFileSync(path.join(config.output.path, 'index.html'), 'utf8');
       const expectedHtml = fs.readFileSync(path.join(__dirname, 'files/results/html/index-handlebars.html'), 'utf8');
 
       expect(minify(generatedHtml, { collapseWhitespace: true }))
@@ -198,13 +209,18 @@ describe('rcs-webpack-plugin', () => {
     extraPlugins = [
       new HtmlWebpackPlugin({
         template: path.join(__dirname, 'files/fixtures/entries/index-with-kept-variables.hbs'),
+        scriptLoading: 'blocking',
+        minify: {
+          collapseWhitespace: true,
+          useShortDoctype: false,
+        },
       }),
     ];
 
     const config = getConfig('main.js', { experimentalHandlebarsVariables: true });
 
-    webpack(config, (_, res) => {
-      const generatedHtml = res.compilation.assets['index.html'].source();
+    webpack(config, () => {
+      const generatedHtml = fs.readFileSync(path.join(config.output.path, 'index.html'), 'utf8');
       const expectedHtml = fs.readFileSync(path.join(__dirname, 'files/results/html/index-handlebars-kept-variables.html'), 'utf8');
 
       expect(minify(generatedHtml, { collapseWhitespace: true }))
