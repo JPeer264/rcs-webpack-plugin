@@ -62,7 +62,7 @@
     "rcs-core": "^3.6.0",
     "rename-css-selectors": "^4.1.0",
     "rimraf": "^2.7.1",
-    "ts-jest": "^24.0.2",
+    "ts-jest": "^29.1.0",
     "typescript": "^3.5.3",
     "uuid": "^3.3.2"
   },
